@@ -1,8 +1,8 @@
-import { Studio } from "next-sanity/studio";
-import config from "@/../sanity.config";
+"use client";
 
-export const revalidate = 0; // always fresh
+import { NextStudio } from "next-sanity/studio";
+import config from "../../../../sanity.config";
 
 export default function StudioPage() {
-  return <Studio config={config} />;
+  return <NextStudio config={config} />;
 }

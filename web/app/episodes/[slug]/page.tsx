@@ -3,10 +3,12 @@ import { Transcript } from "@/components/Transcript";
 import { formatTimestamp } from "@/lib/time";
 import { fetchEpisodeBySlug, fetchLearnTerms } from "@/lib/cms";
 
-type Props = { params: { slug: string } };
+type Params = { slug: string };
+type Props = { params: Params | Promise<Params> };
 
 export default async function EpisodeDetail({ params }: Props) {
-  const episode = await fetchEpisodeBySlug(params.slug);
+  const { slug } = await params;
+  const episode = await fetchEpisodeBySlug(slug);
   if (!episode) return notFound();
 
   const allTerms = await fetchLearnTerms();

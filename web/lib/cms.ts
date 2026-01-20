@@ -47,11 +47,19 @@ export async function fetchEpisodes(): Promise<CmsEpisode[]> {
 }
 
 export async function fetchEpisodeBySlug(slug: string): Promise<CmsEpisode | null> {
+  if (!slug) return null;
   if (!hasSanity || !sanityClient) {
     return mockEpisodes.find((e) => e.slug === slug) ?? null;
   }
-  const data: RawEpisode | null = await sanityClient.fetch(episodeBySlugQuery, { slug });
-  return data ? mapEpisode(data) : null;
+  try {
+    const data: RawEpisode | null = await sanityClient.fetch(episodeBySlugQuery, {
+      slug: String(slug),
+    });
+    return data ? mapEpisode(data) : null;
+  } catch (err) {
+    console.error("fetchEpisodeBySlug error", err);
+    return null;
+  }
 }
 
 export async function fetchLearnTerms(): Promise<CmsLearn[]> {

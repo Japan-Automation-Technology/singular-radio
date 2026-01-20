@@ -2,10 +2,12 @@ import { notFound } from "next/navigation";
 import { formatTimestamp } from "@/lib/time";
 import { fetchLearnBySlug, fetchEpisodes } from "@/lib/cms";
 
-type Props = { params: { slug: string } };
+type Params = { slug: string };
+type Props = { params: Params | Promise<Params> };
 
 export default async function LearnDetail({ params }: Props) {
-  const term = await fetchLearnBySlug(params.slug);
+  const { slug } = await params;
+  const term = await fetchLearnBySlug(slug);
   if (!term) return notFound();
   const episodes = await fetchEpisodes();
 
