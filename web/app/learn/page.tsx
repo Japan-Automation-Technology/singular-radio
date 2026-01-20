@@ -1,9 +1,10 @@
 import { LearnCard } from "@/components/LearnCard";
-import { learnTerms } from "@/lib/data";
+import { fetchLearnTerms } from "@/lib/cms";
 
 export const metadata = { title: "Learn – Singular Radio" };
 
-export default function LearnPage() {
+export default async function LearnPage() {
+  const learnTerms = await fetchLearnTerms();
   return (
     <div className="space-y-6">
       <header className="space-y-2">

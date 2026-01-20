@@ -1,9 +1,10 @@
 import { EpisodeCard } from "@/components/EpisodeCard";
-import { episodes } from "@/lib/data";
+import { fetchEpisodes } from "@/lib/cms";
 
 export const metadata = { title: "Episodes – Singular Radio" };
 
-export default function EpisodesPage() {
+export default async function EpisodesPage() {
+  const episodes = await fetchEpisodes();
   return (
     <div className="space-y-6">
       <header className="space-y-2">

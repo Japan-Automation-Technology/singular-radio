@@ -1,12 +1,13 @@
 import { notFound } from "next/navigation";
-import { learnTerms, episodes } from "@/lib/data";
 import { formatTimestamp } from "@/lib/time";
+import { fetchLearnBySlug, fetchEpisodes } from "@/lib/cms";
 
 type Props = { params: { slug: string } };
 
-export default function LearnDetail({ params }: Props) {
-  const term = learnTerms.find((t) => t.slug === params.slug);
+export default async function LearnDetail({ params }: Props) {
+  const term = await fetchLearnBySlug(params.slug);
   if (!term) return notFound();
+  const episodes = await fetchEpisodes();
 
   return (
     <div className="space-y-8">

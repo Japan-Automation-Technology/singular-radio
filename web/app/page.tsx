@@ -2,12 +2,18 @@ import { EpisodeHero } from "@/components/EpisodeHero";
 import { EpisodeCard } from "@/components/EpisodeCard";
 import { LearnCard } from "@/components/LearnCard";
 import { Leaderboard } from "@/components/Leaderboard";
-import { episodes, learnTerms, leaderboard } from "@/lib/data";
+import { leaderboard } from "@/lib/data";
 import Link from "next/link";
+import { fetchEpisodes, fetchLearnTerms } from "@/lib/cms";
 
-export default function Home() {
+export default async function Home() {
+  const episodes = await fetchEpisodes();
+  const learnTerms = await fetchLearnTerms();
   const latest = episodes[0];
   const featuredLearn = learnTerms.slice(0, 3);
+  if (!latest) {
+    return <p>まだエピソードがありません。</p>;
+  }
   return (
     <div className="space-y-10">
       <EpisodeHero episode={latest} />

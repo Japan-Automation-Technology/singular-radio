@@ -1,15 +1,16 @@
 import { notFound } from "next/navigation";
 import { Transcript } from "@/components/Transcript";
-import { episodes, learnTerms } from "@/lib/data";
 import { formatTimestamp } from "@/lib/time";
+import { fetchEpisodeBySlug, fetchLearnTerms } from "@/lib/cms";
 
 type Props = { params: { slug: string } };
 
-export default function EpisodeDetail({ params }: Props) {
-  const episode = episodes.find((e) => e.slug === params.slug);
+export default async function EpisodeDetail({ params }: Props) {
+  const episode = await fetchEpisodeBySlug(params.slug);
   if (!episode) return notFound();
 
-  const terms = learnTerms.filter((t) => episode.learnTerms.includes(t.slug));
+  const allTerms = await fetchLearnTerms();
+  const terms = allTerms.filter((t) => episode.learnTerms.includes(t.slug));
 
   return (
     <div className="space-y-8">
