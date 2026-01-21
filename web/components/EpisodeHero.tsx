@@ -2,6 +2,7 @@ import type { Episode } from "@/lib/data";
 import Link from "next/link";
 
 export function EpisodeHero({ episode }: { episode: Episode }) {
+  const embedUrl = youtubeEmbedUrl(episode.youtubeUrl);
   return (
     <section className="rounded-2xl border border-slate-200 bg-gradient-to-br from-slate-50 via-white to-slate-100 p-6 shadow-sm">
       <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
@@ -53,19 +54,28 @@ export function EpisodeHero({ episode }: { episode: Episode }) {
             )}
           </div>
         </div>
-        <div className="w-full md:w-80">
-          <div className="aspect-video overflow-hidden rounded-xl border border-slate-200 bg-black">
-            {episode.youtubeUrl ? (
+        <div className="w-full md:w-[520px]">
+          <div className="aspect-[16/10] overflow-hidden rounded-xl border border-slate-200 bg-black">
+            {embedUrl ? (
               <iframe
                 className="h-full w-full"
-                src={episode.youtubeUrl.replace("watch?v=", "embed/")}
+                src={embedUrl}
                 title={episode.title}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen
+                referrerPolicy="strict-origin-when-cross-origin"
               />
             ) : (
-              <div className="flex h-full items-center justify-center text-slate-400">
-                Video placeholder
+              <div className="flex h-full flex-col items-center justify-center gap-2 bg-slate-950 text-slate-200">
+                <p className="text-sm">埋め込みできません</p>
+                {episode.youtubeUrl && (
+                  <a
+                    className="rounded-full bg-white px-3 py-1 text-xs font-semibold text-slate-900"
+                    href={episode.youtubeUrl}
+                  >
+                    YouTubeで開く
+                  </a>
+                )}
               </div>
             )}
           </div>
@@ -79,3 +89,4 @@ export function EpisodeHero({ episode }: { episode: Episode }) {
     </section>
   );
 }
+import { youtubeEmbedUrl } from "@/lib/youtube";

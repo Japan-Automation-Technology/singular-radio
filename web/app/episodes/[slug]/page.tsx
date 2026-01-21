@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { Transcript } from "@/components/Transcript";
 import { formatTimestamp } from "@/lib/time";
 import { fetchEpisodeBySlug, fetchLearnTerms } from "@/lib/cms";
+import { youtubeEmbedUrl } from "@/lib/youtube";
 
 type Params = { slug: string };
 type Props = { params: Params | Promise<Params> };
@@ -68,17 +69,26 @@ export default async function EpisodeDetail({ params }: Props) {
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_280px]">
         <div className="space-y-6">
           <div className="overflow-hidden rounded-xl border border-slate-200 bg-black shadow-sm">
-            {episode.youtubeUrl ? (
+            {youtubeEmbedUrl(episode.youtubeUrl) ? (
               <iframe
-                className="h-[320px] w-full"
-                src={episode.youtubeUrl.replace("watch?v=", "embed/")}
+                className="aspect-[16/10] w-full"
+                src={youtubeEmbedUrl(episode.youtubeUrl)!}
                 title={episode.title}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen
+                referrerPolicy="strict-origin-when-cross-origin"
               />
             ) : (
-              <div className="flex h-[320px] items-center justify-center text-slate-400">
-                Video placeholder
+              <div className="flex h-[320px] flex-col items-center justify-center gap-2 text-slate-200">
+                <p className="text-sm">埋め込みできません</p>
+                {episode.youtubeUrl && (
+                  <a
+                    className="rounded-full bg-white px-3 py-1 text-xs font-semibold text-slate-900"
+                    href={episode.youtubeUrl}
+                  >
+                    YouTubeで開く
+                  </a>
+                )}
               </div>
             )}
           </div>
