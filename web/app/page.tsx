@@ -6,6 +6,9 @@ import { leaderboard } from "@/lib/data";
 import Link from "next/link";
 import { fetchEpisodes, fetchLearnTerms } from "@/lib/cms";
 
+// Always render this page on each request so new episodes appear without a redeploy.
+export const dynamic = "force-dynamic";
+
 export default async function Home() {
   const episodes = await fetchEpisodes();
   const learnTerms = await fetchLearnTerms();

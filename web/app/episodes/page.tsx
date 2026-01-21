@@ -3,6 +3,9 @@ import { fetchEpisodes } from "@/lib/cms";
 
 export const metadata = { title: "Episodes – Singular Radio" };
 
+// Force dynamic rendering so the list reflects newly published episodes immediately.
+export const dynamic = "force-dynamic";
+
 export default async function EpisodesPage() {
   const episodes = await fetchEpisodes();
   return (
