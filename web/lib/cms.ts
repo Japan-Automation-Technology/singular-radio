@@ -106,9 +106,11 @@ function mapLearn(raw: RawLearn): CmsLearn {
     longDef: raw.longDef ?? "",
     categories: raw.categories ?? [],
     occurrences:
-      raw.occurrences?.map((occ) => ({
-        episode: occ.episode?.slug,
-        timestamp: occ.timestamp ?? 0,
-      })) ?? [],
+      (raw.occurrences ?? [])
+        .filter((occ) => occ.episode?.slug)
+        .map((occ) => ({
+          episode: occ.episode!.slug,
+          timestamp: occ.timestamp ?? 0,
+        })),
   };
 }
