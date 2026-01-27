@@ -21,9 +21,9 @@ export function Header() {
     setMounted(true);
   }, []);
   return (
-    <header className="sticky top-0 z-20 border-b border-slate-200/60 bg-white/80 backdrop-blur">
+    <header className="sticky top-0 z-20 border-b border-slate-200/60 bg-white/70 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-        <Link href="/" className="text-lg font-semibold tracking-tight">
+        <Link href="/" className="text-lg font-semibold tracking-tight text-slate-950">
           Singular Radio
         </Link>
         <nav className="hidden items-center gap-4 text-sm font-medium text-slate-700 md:flex">
@@ -31,7 +31,7 @@ export function Header() {
             <Link
               key={item.href}
               href={item.href}
-              className="rounded-full px-3 py-1 hover:bg-slate-100"
+              className="rounded-full px-3 py-1 transition hover:bg-slate-100/80 hover:text-slate-900"
             >
               {item.label}
             </Link>
@@ -40,7 +40,7 @@ export function Header() {
         <button
           type="button"
           aria-label="Open menu"
-          className="inline-flex items-center justify-center rounded-full border border-slate-200 px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-100 md:hidden"
+          className="inline-flex items-center justify-center rounded-full border border-slate-200 bg-white/80 px-3 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100 md:hidden"
           onClick={() => setOpen(true)}
         >
           Menu

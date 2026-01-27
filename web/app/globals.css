@@ -1,8 +1,12 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f8fafc;
-  --foreground: #0f172a;
+  --background: #f4f7fb;
+  --foreground: #0b1020;
+  --ink: #0c1b2a;
+  --accent: #1d4ed8;
+  --accent-2: #0ea5a4;
+  --surface: #ffffff;
 }
 
 @theme inline {
@@ -13,7 +17,10 @@
 }
 
 body {
-  background: var(--background);
+  background:
+    radial-gradient(1200px 600px at 8% -10%, rgba(29, 78, 216, 0.22), transparent 60%),
+    radial-gradient(900px 520px at 92% 4%, rgba(14, 165, 164, 0.18), transparent 55%),
+    linear-gradient(180deg, #f8fafc 0%, #eef2f7 100%);
   color: var(--foreground);
 }
 
@@ -23,4 +30,44 @@ a {
 
 p {
   line-height: 1.7;
+}
+
+::selection {
+  background: rgba(29, 78, 216, 0.18);
+}
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.86);
+  box-shadow:
+    0 20px 60px -48px rgba(15, 23, 42, 0.6),
+    0 2px 10px -6px rgba(15, 23, 42, 0.2);
+  border: 1px solid rgba(226, 232, 240, 0.7);
+  backdrop-filter: blur(16px);
+}
+
+.animate-rise {
+  animation: rise 0.7s ease-out both;
+}
+
+.animate-rise-delayed {
+  animation: rise 0.7s ease-out both;
+  animation-delay: 0.12s;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-rise,
+  .animate-rise-delayed {
+    animation: none;
+  }
 }
