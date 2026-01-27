@@ -110,10 +110,11 @@ export default function SponsorsPage() {
               Brand Fit
             </h3>
             <p className="mt-2 text-base font-semibold text-slate-900">
-              トーンと熱量を揃えた設計
+              番組のトーンに合うブランドのみ
             </p>
             <p className="mt-3 text-sm text-slate-600">
-              ただの広告ではなく、価値を伝える会話として組み込むことを重視しています。
+              信頼を損なわない文脈で紹介できるかを最重要視しています。長期的に視聴者との関係を
+              育ててきたチャンネルだからこそ、番組の価値観に合うブランドだけを丁寧に選びます。
             </p>
           </div>
         </div>
