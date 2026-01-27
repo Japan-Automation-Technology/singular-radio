@@ -7,7 +7,6 @@ export function EpisodeHero({ episode }: { episode: Episode }) {
   const meta = [episode.publishedAt, episode.duration, episode.guest]
     .filter(Boolean)
     .join(" · ");
-  const hasSummary = Boolean(episode.summary);
   const hasTags = episode.tags.length > 0;
   return (
     <section className="rounded-2xl border border-slate-200 bg-gradient-to-br from-slate-50 via-white to-slate-100 p-6 shadow-sm">
@@ -20,11 +19,6 @@ export function EpisodeHero({ episode }: { episode: Episode }) {
             {episode.title}
           </h1>
           {meta && <p className="text-sm text-slate-600">{meta}</p>}
-          {hasSummary && (
-            <p className="max-w-2xl text-base text-slate-800">
-              {episode.summary}
-            </p>
-          )}
           {hasTags && (
             <div className="flex flex-wrap gap-2">
               {episode.tags.map((tag) => (
@@ -91,16 +85,14 @@ export function EpisodeHero({ episode }: { episode: Episode }) {
           </div>
         </div>
       </div>
-      {!episode.externalUrl && (
-        <div className="mt-4 text-right text-sm">
-          <Link
-            className="text-slate-700 underline"
-            href={`/episodes/${episode.slug}`}
-          >
-            Go to episode page →
-          </Link>
-        </div>
-      )}
+      <div className="mt-4 text-right text-sm">
+        <Link
+          className="text-slate-700 underline"
+          href={`/episodes/${episode.slug}`}
+        >
+          Go to episode page →
+        </Link>
+      </div>
     </section>
   );
 }

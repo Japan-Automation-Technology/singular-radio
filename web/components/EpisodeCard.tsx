@@ -3,7 +3,6 @@ import Link from "next/link";
 
 export function EpisodeCard({ episode }: { episode: Episode }) {
   const meta = [episode.publishedAt, episode.duration].filter(Boolean).join(" · ");
-  const hasSummary = Boolean(episode.summary);
   const hasTags = episode.tags.length > 0;
   const card = (
     <div className="flex items-center gap-4">
@@ -30,11 +29,6 @@ export function EpisodeCard({ episode }: { episode: Episode }) {
         <h3 className="mt-1 text-lg font-semibold text-slate-900 group-hover:text-slate-700">
           {episode.title}
         </h3>
-        {hasSummary && (
-          <p className="mt-2 line-clamp-2 text-sm text-slate-600">
-            {episode.summary}
-          </p>
-        )}
         {hasTags && (
           <div className="mt-3 flex flex-wrap gap-2">
             {episode.tags.map((tag) => (
@@ -50,17 +44,6 @@ export function EpisodeCard({ episode }: { episode: Episode }) {
       </div>
     </div>
   );
-
-  if (episode.externalUrl) {
-    return (
-      <a
-        href={episode.externalUrl}
-        className="group block rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
-      >
-        {card}
-      </a>
-    );
-  }
 
   return (
     <Link

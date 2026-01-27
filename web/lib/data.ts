@@ -15,7 +15,6 @@ export type Episode = {
   youtubeUrl?: string;
   spotifyUrl?: string;
   appleUrl?: string;
-  externalUrl?: string;
   viewCount?: number;
   likeCount?: number;
   commentCount?: number;

@@ -128,7 +128,6 @@ function mapVideoToEpisode(item: NonNullable<VideoListResponse["items"]>[number]
     transcript: [],
     learnTerms: [],
     thumbnailUrl: pickThumbnail(item.snippet?.thumbnails),
-    externalUrl: youtubeUrl,
     viewCount: toNumber(item.statistics?.viewCount),
     likeCount: toNumber(item.statistics?.likeCount),
     commentCount: toNumber(item.statistics?.commentCount),

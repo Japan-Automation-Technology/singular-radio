@@ -105,7 +105,6 @@ function mapEpisode(raw: RawEpisode): CmsEpisode {
     youtubeUrl: raw.youtubeUrl,
     spotifyUrl: raw.spotifyUrl,
     appleUrl: raw.appleUrl,
-    externalUrl: undefined,
     viewCount: undefined,
     likeCount: undefined,
     commentCount: undefined,
