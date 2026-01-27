@@ -11,9 +11,14 @@ export type Episode = {
   guest?: string;
   publishedAt: string;
   duration: string;
+  thumbnailUrl?: string;
   youtubeUrl?: string;
   spotifyUrl?: string;
   appleUrl?: string;
+  externalUrl?: string;
+  viewCount?: number;
+  likeCount?: number;
+  commentCount?: number;
   tags: string[];
   summary: string;
   transcript: TranscriptSegment[];
@@ -87,6 +92,7 @@ export const episodes: Episode[] = [
     guest: "Solo回",
     publishedAt: "2026-01-10",
     duration: "42:18",
+    thumbnailUrl: "https://i.ytimg.com/vi/dQw4w9WgXcQ/hqdefault.jpg",
     youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
     spotifyUrl:
       "https://open.spotify.com/show/2nOYrpc9PhKQ5v7s81KzCW?si=demo",

@@ -7,6 +7,7 @@ import {
   learnTermBySlugQuery,
 } from "./queries";
 import { episodes as mockEpisodes, learnTerms as mockLearn } from "./data";
+import { fetchYoutubeEpisodeById, fetchYoutubeEpisodes, hasYoutubeConfig } from "./youtube-data";
 
 export type CmsEpisode = typeof mockEpisodes[number];
 export type CmsLearn = typeof mockLearn[number];
@@ -41,6 +42,14 @@ type RawLearn = {
 };
 
 export async function fetchEpisodes(): Promise<CmsEpisode[]> {
+  if (hasYoutubeConfig()) {
+    try {
+      const data = await fetchYoutubeEpisodes();
+      if (data.length > 0) return data;
+    } catch (err) {
+      console.error("fetchYoutubeEpisodes error", err);
+    }
+  }
   if (!hasSanity || !sanityClient) return mockEpisodes;
   const data: RawEpisode[] = await sanityClient.fetch(episodesQuery);
   return data.map(mapEpisode);
@@ -49,13 +58,22 @@ export async function fetchEpisodes(): Promise<CmsEpisode[]> {
 export async function fetchEpisodeBySlug(slug: string): Promise<CmsEpisode | null> {
   if (!slug) return null;
   if (!hasSanity || !sanityClient) {
+    if (hasYoutubeConfig()) {
+      const youtubeEpisode = await fetchYoutubeEpisodeById(slug);
+      if (youtubeEpisode) return youtubeEpisode;
+    }
     return mockEpisodes.find((e) => e.slug === slug) ?? null;
   }
   try {
     const data: RawEpisode | null = await sanityClient.fetch(episodeBySlugQuery, {
       slug: String(slug),
     });
-    return data ? mapEpisode(data) : null;
+    if (data) return mapEpisode(data);
+    if (hasYoutubeConfig()) {
+      const youtubeEpisode = await fetchYoutubeEpisodeById(slug);
+      if (youtubeEpisode) return youtubeEpisode;
+    }
+    return null;
   } catch (err) {
     console.error("fetchEpisodeBySlug error", err);
     return null;
@@ -83,9 +101,14 @@ function mapEpisode(raw: RawEpisode): CmsEpisode {
     guest: raw.guest,
     publishedAt: raw.publishedAt?.slice(0, 10) ?? "",
     duration: raw.duration ?? "",
+    thumbnailUrl: undefined,
     youtubeUrl: raw.youtubeUrl,
     spotifyUrl: raw.spotifyUrl,
     appleUrl: raw.appleUrl,
+    externalUrl: undefined,
+    viewCount: undefined,
+    likeCount: undefined,
+    commentCount: undefined,
     tags: raw.tags ?? [],
     summary: raw.summary ?? "",
     transcript: (raw.transcript ?? []).map((seg) => ({

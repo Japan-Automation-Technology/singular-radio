@@ -1,8 +1,14 @@
 import type { Episode } from "@/lib/data";
+import { youtubeEmbedUrl } from "@/lib/youtube";
 import Link from "next/link";
 
 export function EpisodeHero({ episode }: { episode: Episode }) {
   const embedUrl = youtubeEmbedUrl(episode.youtubeUrl);
+  const meta = [episode.publishedAt, episode.duration, episode.guest]
+    .filter(Boolean)
+    .join(" · ");
+  const hasSummary = Boolean(episode.summary);
+  const hasTags = episode.tags.length > 0;
   return (
     <section className="rounded-2xl border border-slate-200 bg-gradient-to-br from-slate-50 via-white to-slate-100 p-6 shadow-sm">
       <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
@@ -13,20 +19,24 @@ export function EpisodeHero({ episode }: { episode: Episode }) {
           <h1 className="text-3xl font-semibold leading-tight text-slate-900">
             {episode.title}
           </h1>
-          <p className="text-sm text-slate-600">
-            {episode.publishedAt} · {episode.duration} · {episode.guest}
-          </p>
-          <p className="max-w-2xl text-base text-slate-800">{episode.summary}</p>
-          <div className="flex flex-wrap gap-2">
-            {episode.tags.map((tag) => (
-              <span
-                key={tag}
-                className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-semibold text-slate-700"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
+          {meta && <p className="text-sm text-slate-600">{meta}</p>}
+          {hasSummary && (
+            <p className="max-w-2xl text-base text-slate-800">
+              {episode.summary}
+            </p>
+          )}
+          {hasTags && (
+            <div className="flex flex-wrap gap-2">
+              {episode.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-semibold text-slate-700"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
           <div className="flex flex-wrap gap-3">
             {episode.youtubeUrl && (
               <a
@@ -81,12 +91,16 @@ export function EpisodeHero({ episode }: { episode: Episode }) {
           </div>
         </div>
       </div>
-      <div className="mt-4 text-right text-sm">
-        <Link className="text-slate-700 underline" href={`/episodes/${episode.slug}`}>
-          Go to episode page →
-        </Link>
-      </div>
+      {!episode.externalUrl && (
+        <div className="mt-4 text-right text-sm">
+          <Link
+            className="text-slate-700 underline"
+            href={`/episodes/${episode.slug}`}
+          >
+            Go to episode page →
+          </Link>
+        </div>
+      )}
     </section>
   );
 }
-import { youtubeEmbedUrl } from "@/lib/youtube";
