@@ -16,7 +16,7 @@ export default function SponsorsPage() {
         <h2 className="text-xl font-semibold text-slate-900">媒体情報</h2>
         <ul className="mt-3 list-disc space-y-2 pl-4 text-sm text-slate-700">
           <li>Spotify / Apple / YouTube クロス配信。</li>
-          <li>長尺インタビュー中心。1本あたり平均 40–60 分。</li>
+          <li>長尺の対話・インタビュー動画中心。1本あたり平均 40–60 分。</li>
           <li>技術・政策・哲学に関心のあるリスナーが多い。</li>
         </ul>
         <div className="mt-4 rounded-lg bg-slate-50 p-4 text-sm text-slate-800">

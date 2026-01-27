@@ -13,7 +13,14 @@ import {
   fetchYoutubeTranscriptById,
   hasYoutubeConfig,
 } from "./youtube-data";
-import { getEpisodesFromKv, hasKvConfig } from "./kv";
+import {
+  getEpisodesFromKv,
+  getTranscriptFromKv,
+  hasKvConfig,
+  isTranscriptBackoff,
+  setTranscriptBackoff,
+  setTranscriptToKv,
+} from "./kv";
 
 export type CmsEpisode = typeof mockEpisodes[number];
 export type CmsLearn = typeof mockLearn[number];
@@ -71,8 +78,26 @@ export async function fetchEpisodeBySlug(slug: string): Promise<CmsEpisode | nul
     const cached = await getEpisodesFromKv();
     const hit = cached?.find((episode) => episode.slug === slug);
     if (hit) {
-      const transcript = await fetchYoutubeTranscriptById(slug);
-      return { ...hit, transcript };
+      let transcript = await getTranscriptFromKv(slug);
+      if (!transcript) {
+        const backoff = await isTranscriptBackoff(slug);
+        if (!backoff && hasYoutubeConfig()) {
+          try {
+            transcript = await fetchYoutubeTranscriptById(slug);
+            if (transcript.length > 0) {
+              await setTranscriptToKv(slug, transcript);
+            } else {
+              await setTranscriptBackoff(slug);
+            }
+          } catch (err) {
+            console.error("fetchYoutubeTranscriptById error", err);
+            await setTranscriptBackoff(slug);
+          }
+        } else {
+          transcript = [];
+        }
+      }
+      return { ...hit, transcript: transcript ?? [] };
     }
   }
   if (hasYoutubeConfig()) {

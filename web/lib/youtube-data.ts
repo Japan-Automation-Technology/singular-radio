@@ -211,9 +211,7 @@ async function fetchCaptionTracks(videoId: string): Promise<CaptionTrack[]> {
   url.searchParams.set("v", videoId);
   const res = await fetch(url.toString(), { next: { revalidate: 86400 } });
   console.log("[yt] caption track list status:", res.status, res.statusText);
-  if (res.status === 429) {
-    throw new Error("YouTube timedtext rate limited");
-  }
+  if (res.status === 429) return [];
   if (!res.ok) return [];
   const xml = await res.text();
   console.log("[yt] caption track list xml:", xml.slice(0, 2000));
@@ -256,11 +254,8 @@ export async function fetchYoutubeTranscriptById(
   }
 
   const langs = ["ja", "en"];
-  let tracks: CaptionTrack[] = [];
-  try {
-    tracks = await fetchCaptionTracks(videoId);
-  } catch (err) {
-    console.error("[yt] caption track list error", err);
+  const tracks = await fetchCaptionTracks(videoId);
+  if (tracks.length === 0) {
     transcriptCache.set(videoId, {
       segments: cached?.segments ?? [],
       fetchedAt: now,
