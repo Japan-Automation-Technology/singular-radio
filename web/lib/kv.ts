@@ -59,6 +59,10 @@ function getTranscriptSummaryKey(videoId: string): string {
   return `${getCommentsNamespace()}:transcriptSummary:${videoId}`;
 }
 
+function getTranscriptSummaryBackoffKey(videoId: string): string {
+  return `${getTranscriptSummaryKey(videoId)}:backoff`;
+}
+
 export async function getEpisodesFromKv(): Promise<Episode[] | null> {
   if (!hasKvConfig()) return null;
   const kv = Redis.fromEnv();
@@ -250,4 +254,24 @@ export async function setTranscriptSummaryToKv(
   const kv = Redis.fromEnv();
   const key = getTranscriptSummaryKey(videoId);
   await kv.set(key, summary);
+}
+
+export async function isTranscriptSummaryBackoff(
+  videoId: string
+): Promise<boolean> {
+  if (!hasKvConfig()) return false;
+  const kv = Redis.fromEnv();
+  const key = getTranscriptSummaryBackoffKey(videoId);
+  const data = await kv.get<string>(key);
+  return Boolean(data);
+}
+
+export async function setTranscriptSummaryBackoff(
+  videoId: string,
+  ttlSeconds = 60 * 60 * 24
+): Promise<void> {
+  if (!hasKvConfig()) return;
+  const kv = Redis.fromEnv();
+  const key = getTranscriptSummaryBackoffKey(videoId);
+  await kv.set(key, "1", { ex: ttlSeconds });
 }

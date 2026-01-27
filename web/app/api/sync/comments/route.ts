@@ -6,12 +6,14 @@ import {
   getCommentById,
   getHiddenCommentIds,
   getTranscriptSummaryFromKv,
+  isTranscriptSummaryBackoff,
   getVideoCommentIds,
   hasKvConfig,
   replaceVideoCommentIds,
   setComment,
   setFeaturedCommentsToKv,
   setLeaderboardToKv,
+  setTranscriptSummaryBackoff,
   setTranscriptSummaryToKv,
 } from "@/lib/kv";
 import {
@@ -69,11 +71,16 @@ async function ensureTranscriptSummary(params: {
 }): Promise<string> {
   const cached = await getTranscriptSummaryFromKv(params.videoId);
   if (cached) return cached;
+  const backoff = await isTranscriptSummaryBackoff(params.videoId);
+  if (backoff) return params.fallbackSummary;
   if (!hasGeminiConfig()) return params.fallbackSummary;
 
   try {
     const segments = await fetchYoutubeTranscriptById(params.videoId);
-    if (!segments || segments.length === 0) return params.fallbackSummary;
+    if (!segments || segments.length === 0) {
+      await setTranscriptSummaryBackoff(params.videoId, 60 * 60 * 24);
+      return params.fallbackSummary;
+    }
     const transcriptText = segments.map((seg) => seg.text).join(" ");
     const excerpt = truncateTranscript(transcriptText, TRANSCRIPT_MAX_CHARS);
     const result = await summarizeTranscriptWithGemini({
@@ -86,6 +93,7 @@ async function ensureTranscriptSummary(params: {
     }
   } catch (err) {
     console.error("transcript summary error", err);
+    await setTranscriptSummaryBackoff(params.videoId, 60 * 60 * 6);
   }
   return params.fallbackSummary;
 }
