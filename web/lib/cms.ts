@@ -57,23 +57,18 @@ export async function fetchEpisodes(): Promise<CmsEpisode[]> {
 
 export async function fetchEpisodeBySlug(slug: string): Promise<CmsEpisode | null> {
   if (!slug) return null;
+  if (hasYoutubeConfig()) {
+    const youtubeEpisode = await fetchYoutubeEpisodeById(slug);
+    if (youtubeEpisode) return youtubeEpisode;
+  }
   if (!hasSanity || !sanityClient) {
-    if (hasYoutubeConfig()) {
-      const youtubeEpisode = await fetchYoutubeEpisodeById(slug);
-      if (youtubeEpisode) return youtubeEpisode;
-    }
     return mockEpisodes.find((e) => e.slug === slug) ?? null;
   }
   try {
     const data: RawEpisode | null = await sanityClient.fetch(episodeBySlugQuery, {
       slug: String(slug),
     });
-    if (data) return mapEpisode(data);
-    if (hasYoutubeConfig()) {
-      const youtubeEpisode = await fetchYoutubeEpisodeById(slug);
-      if (youtubeEpisode) return youtubeEpisode;
-    }
-    return null;
+    return data ? mapEpisode(data) : null;
   } catch (err) {
     console.error("fetchEpisodeBySlug error", err);
     return null;

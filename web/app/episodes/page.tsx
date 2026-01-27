@@ -21,7 +21,7 @@ export default async function EpisodesPage() {
           公開順に並べています。検索・フィルタは今後追加。
         </p>
       </header>
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid gap-4 lg:grid-cols-2">
         {episodes.map((episode) => (
           <EpisodeCard key={episode.slug} episode={episode} />
         ))}

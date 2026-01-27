@@ -7,6 +7,13 @@ type Props = {
 };
 
 export function Transcript({ segments }: Props) {
+  if (segments.length === 0) {
+    return (
+      <div className="rounded-lg border border-dashed border-slate-200 bg-white/60 p-6 text-sm text-slate-600">
+        字幕がまだ取得できていません。
+      </div>
+    );
+  }
   return (
     <div className="space-y-4">
       {segments.map((seg) => (

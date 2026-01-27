@@ -30,7 +30,7 @@ export default async function Home() {
             View all →
           </Link>
         </div>
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid gap-4 lg:grid-cols-2">
           {episodes.map((ep) => (
             <EpisodeCard key={ep.slug} episode={ep} />
           ))}
