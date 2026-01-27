@@ -34,3 +34,27 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Environment Variables
+
+```
+YOUTUBE_API_KEY=...
+YOUTUBE_PLAYLIST_ID=...
+UPSTASH_REDIS_REST_URL=...
+UPSTASH_REDIS_REST_TOKEN=...
+CRON_SECRET=...
+GEMINI_API_KEY=...
+GEMINI_MODEL=gemini-3-flash-preview
+```
+
+Optional tuning:
+
+```
+FEATURED_COMMENTS_LIMIT=12
+FEATURED_MAX_PER_VIDEO=2
+FEATURED_MAX_PER_AUTHOR=1
+LEADERBOARD_LIMIT=10
+LEADERBOARD_TOP_K=10
+TRANSCRIPT_SUMMARY_CHARS=5000
+YOUTUBE_COMMENTS_PAGE_LIMIT=0
+```

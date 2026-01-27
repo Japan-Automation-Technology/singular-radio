@@ -1,15 +1,16 @@
 import { EpisodeHero } from "@/components/EpisodeHero";
 import { EpisodeCard } from "@/components/EpisodeCard";
 import { Leaderboard } from "@/components/Leaderboard";
-import { leaderboard } from "@/lib/data";
 import Link from "next/link";
 import { fetchEpisodes } from "@/lib/cms";
+import { fetchLeaderboard } from "@/lib/community";
 
 // Always render this page on each request so new episodes appear without a redeploy.
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
   const episodes = await fetchEpisodes();
+  const leaderboard = await fetchLeaderboard();
   const latest = episodes[0];
   const featuredEpisodes = episodes.slice(0, 6);
   if (!latest) {

@@ -1,3 +1,5 @@
+import type { FeaturedComment, LeaderboardEntry } from "@/lib/comments";
+
 export type TranscriptSegment = {
   id: string;
   text: string;
@@ -104,7 +106,7 @@ export const episodes: Episode[] = [
   },
 ];
 
-export const leaderboard = [
+export const leaderboard: LeaderboardEntry[] = [
   {
     user: "kai",
     text: "タイムスタンプ付きのLearnリンクが最高。復習が捗った。",
@@ -119,5 +121,26 @@ export const leaderboard = [
     user: "moto",
     text: "用語集ではなく“Learn”という切り口が好き。",
     score: 27,
+  },
+];
+
+export const featuredComments: FeaturedComment[] = [
+  {
+    id: "demo-1",
+    videoId: "agi-2026-outlook",
+    authorName: "yuna",
+    text: "AGIの進化速度について具体例があって分かりやすかった。次回は安全性の実装面も深掘りしてほしい。",
+    youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ&lc=demo-1",
+    score: 92,
+    rationale: "具体的な言及と建設的な提案がある。",
+  },
+  {
+    id: "demo-2",
+    videoId: "agi-2026-outlook",
+    authorName: "hiro",
+    text: "2026年のロードマップは社会実装の話まで触れていて新鮮。特に規制の話はもっと聞きたい。",
+    youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ&lc=demo-2",
+    score: 88,
+    rationale: "独自の視点と具体性が高い。",
   },
 ];

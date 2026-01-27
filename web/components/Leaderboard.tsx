@@ -1,6 +1,16 @@
 type Entry = { user: string; text: string; score: number };
 
-export function Leaderboard({ entries }: { entries: Entry[] }) {
+export function Leaderboard({
+  entries,
+  title = "Leaderboard",
+  badge = "Weekly",
+  note = "スコアは週次で更新されます。",
+}: {
+  entries: Entry[];
+  title?: string;
+  badge?: string;
+  note?: string;
+}) {
   return (
     <div className="glass-panel rounded-2xl p-6 ring-1 ring-sky-100/70">
       <div className="flex items-center justify-between">
@@ -8,12 +18,10 @@ export function Leaderboard({ entries }: { entries: Entry[] }) {
           <p className="text-xs uppercase tracking-[0.2em] text-sky-600">
             Community
           </p>
-          <h2 className="text-xl font-semibold text-slate-900">
-            Leaderboard (demo)
-          </h2>
+          <h2 className="text-xl font-semibold text-slate-900">{title}</h2>
         </div>
         <span className="rounded-full bg-gradient-to-r from-sky-600 to-teal-500 px-3 py-1 text-xs font-semibold text-white">
-          Weekly
+          {badge}
         </span>
       </div>
       <div className="mt-4 space-y-3">
@@ -39,9 +47,9 @@ export function Leaderboard({ entries }: { entries: Entry[] }) {
           </div>
         ))}
       </div>
-      <p className="mt-4 text-xs text-slate-500">
-        投稿機能は次のフェーズで追加予定。今はデモデータです。
-      </p>
+      {note ? (
+        <p className="mt-4 text-xs text-slate-500">{note}</p>
+      ) : null}
     </div>
   );
 }
