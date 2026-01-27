@@ -242,7 +242,9 @@ function pickTrack(tracks: CaptionTrack[], lang: string): CaptionTrack | null {
   return manual ?? exact[0];
 }
 
-async function fetchYoutubeTranscript(videoId: string): Promise<TranscriptSegment[]> {
+export async function fetchYoutubeTranscriptById(
+  videoId: string
+): Promise<TranscriptSegment[]> {
   const cached = transcriptCache.get(videoId);
   const now = Date.now();
   if (cached?.errorUntil && cached.errorUntil > now) {
@@ -386,7 +388,7 @@ export async function fetchYoutubeEpisodeById(id: string): Promise<Episode | nul
   if (!episode) return null;
   try {
     console.log("[yt] fetching transcript for", id);
-    episode.transcript = await fetchYoutubeTranscript(id);
+    episode.transcript = await fetchYoutubeTranscriptById(id);
     console.log("[yt] transcript segments", episode.transcript.length);
   } catch (err) {
     console.error("fetchYoutubeTranscript error", err);

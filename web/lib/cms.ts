@@ -7,7 +7,13 @@ import {
   learnTermBySlugQuery,
 } from "./queries";
 import { episodes as mockEpisodes, learnTerms as mockLearn } from "./data";
-import { fetchYoutubeEpisodeById, fetchYoutubeEpisodes, hasYoutubeConfig } from "./youtube-data";
+import {
+  fetchYoutubeEpisodeById,
+  fetchYoutubeEpisodes,
+  fetchYoutubeTranscriptById,
+  hasYoutubeConfig,
+} from "./youtube-data";
+import { getEpisodesFromKv, hasKvConfig } from "./kv";
 
 export type CmsEpisode = typeof mockEpisodes[number];
 export type CmsLearn = typeof mockLearn[number];
@@ -42,6 +48,10 @@ type RawLearn = {
 };
 
 export async function fetchEpisodes(): Promise<CmsEpisode[]> {
+  if (hasKvConfig()) {
+    const cached = await getEpisodesFromKv();
+    if (cached && cached.length > 0) return cached;
+  }
   if (hasYoutubeConfig()) {
     try {
       const data = await fetchYoutubeEpisodes();
@@ -57,6 +67,14 @@ export async function fetchEpisodes(): Promise<CmsEpisode[]> {
 
 export async function fetchEpisodeBySlug(slug: string): Promise<CmsEpisode | null> {
   if (!slug) return null;
+  if (hasKvConfig()) {
+    const cached = await getEpisodesFromKv();
+    const hit = cached?.find((episode) => episode.slug === slug);
+    if (hit) {
+      const transcript = await fetchYoutubeTranscriptById(slug);
+      return { ...hit, transcript };
+    }
+  }
   if (hasYoutubeConfig()) {
     const youtubeEpisode = await fetchYoutubeEpisodeById(slug);
     if (youtubeEpisode) return youtubeEpisode;
