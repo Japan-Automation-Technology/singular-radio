@@ -6,19 +6,19 @@ export function Footer() {
           <p>© {new Date().getFullYear()} Singular Radio</p>
           <div className="flex gap-4 text-sm font-medium text-slate-700">
             <a
-              className="transition hover:text-slate-900"
+              className="transition hover:text-sky-900"
               href="https://www.youtube.com/@SingularRadio"
             >
               YouTube
             </a>
             <a
-              className="transition hover:text-slate-900"
+              className="transition hover:text-sky-900"
               href="https://x.com/SingularRadio"
             >
               X
             </a>
             <a
-              className="transition hover:text-slate-900"
+              className="transition hover:text-sky-900"
               href="https://open.spotify.com/show/2nOYrpc9PhKQ5v7s81KzCW"
             >
               Spotify

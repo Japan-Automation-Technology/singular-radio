@@ -5,11 +5,11 @@ export function LearnCard({ term }: { term: LearnTerm }) {
   return (
     <Link
       href={`/learn/${term.slug}`}
-      className="group block rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+      className="glass-panel group block rounded-xl p-4 transition hover:-translate-y-1 hover:shadow-lg ring-1 ring-sky-100/70"
     >
       <div className="flex items-start justify-between gap-4">
         <div>
-          <p className="text-xs uppercase tracking-[0.2em] text-slate-500">
+          <p className="text-xs uppercase tracking-[0.2em] text-sky-600/80">
             Learn
           </p>
           <h3 className="mt-1 text-lg font-semibold text-slate-900 group-hover:text-slate-700">
@@ -20,7 +20,7 @@ export function LearnCard({ term }: { term: LearnTerm }) {
             {term.categories.map((cat) => (
               <span
                 key={cat}
-                className="rounded-full bg-slate-100 px-2 py-1 text-xs font-semibold text-slate-700"
+                className="rounded-full border border-sky-100/80 bg-sky-50/80 px-2 py-1 text-xs font-semibold text-sky-800"
               >
                 {cat}
               </span>

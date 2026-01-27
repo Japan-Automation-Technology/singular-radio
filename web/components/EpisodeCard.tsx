@@ -30,7 +30,7 @@ export function EpisodeCard({ episode }: { episode: Episode }) {
       </div>
       <div className="min-w-0 flex-1">
         {meta && (
-          <p className="text-xs uppercase tracking-[0.2em] text-slate-500">
+          <p className="text-xs uppercase tracking-[0.2em] text-sky-600/80">
             {meta}
           </p>
         )}
@@ -44,7 +44,7 @@ export function EpisodeCard({ episode }: { episode: Episode }) {
                 <svg
                   viewBox="0 0 24 24"
                   aria-hidden="true"
-                  className="h-4 w-4 text-slate-500"
+                className="h-4 w-4 text-sky-600/70"
                 >
                   <path
                     fill="currentColor"
@@ -59,7 +59,7 @@ export function EpisodeCard({ episode }: { episode: Episode }) {
                 <svg
                   viewBox="0 0 24 24"
                   aria-hidden="true"
-                  className="h-4 w-4 text-slate-500"
+                className="h-4 w-4 text-sky-600/70"
                 >
                   <path
                     fill="currentColor"
@@ -74,7 +74,7 @@ export function EpisodeCard({ episode }: { episode: Episode }) {
                 <svg
                   viewBox="0 0 24 24"
                   aria-hidden="true"
-                  className="h-4 w-4 text-slate-500"
+                className="h-4 w-4 text-sky-600/70"
                 >
                   <path
                     fill="currentColor"
@@ -91,7 +91,7 @@ export function EpisodeCard({ episode }: { episode: Episode }) {
             {episode.tags.map((tag) => (
               <span
                 key={tag}
-                className="rounded-full bg-slate-100 px-2 py-1 text-xs font-semibold text-slate-700"
+                className="rounded-full border border-sky-100/80 bg-sky-50/80 px-2 py-1 text-xs font-semibold text-sky-800"
               >
                 {tag}
               </span>
@@ -105,7 +105,7 @@ export function EpisodeCard({ episode }: { episode: Episode }) {
   return (
     <Link
       href={`/episodes/${episode.slug}`}
-      className="group block rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+      className="glass-panel group block rounded-xl p-4 transition hover:-translate-y-1 hover:shadow-lg ring-1 ring-sky-100/70"
     >
       {card}
     </Link>

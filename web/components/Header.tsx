@@ -31,7 +31,7 @@ export function Header() {
             <Link
               key={item.href}
               href={item.href}
-              className="rounded-full px-3 py-1 transition hover:bg-slate-100/80 hover:text-slate-900"
+              className="rounded-full px-3 py-1 transition hover:bg-sky-50 hover:text-sky-900"
             >
               {item.label}
             </Link>
@@ -40,7 +40,7 @@ export function Header() {
         <button
           type="button"
           aria-label="Open menu"
-          className="inline-flex items-center justify-center rounded-full border border-slate-200 bg-white/80 px-3 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100 md:hidden"
+          className="inline-flex items-center justify-center rounded-full border border-sky-200 bg-white/80 px-3 py-2 text-sm font-semibold text-slate-700 transition hover:bg-sky-50 md:hidden"
           onClick={() => setOpen(true)}
         >
           Menu
@@ -72,7 +72,7 @@ export function Header() {
                     <Link
                       key={item.href}
                       href={item.href}
-                      className="rounded-lg px-3 py-2 hover:bg-slate-100"
+                      className="rounded-lg px-3 py-2 transition hover:bg-sky-50 hover:text-sky-900"
                       onClick={() => setOpen(false)}
                     >
                       {item.label}

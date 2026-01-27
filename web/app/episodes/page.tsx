@@ -11,7 +11,7 @@ export default async function EpisodesPage() {
   return (
     <div className="space-y-6">
       <header className="space-y-2">
-        <p className="text-xs uppercase tracking-[0.2em] text-slate-500">
+        <p className="text-xs uppercase tracking-[0.2em] text-sky-600">
           Episodes
         </p>
         <h1 className="text-3xl font-semibold text-slate-900">

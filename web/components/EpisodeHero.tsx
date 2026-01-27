@@ -9,10 +9,10 @@ export function EpisodeHero({ episode }: { episode: Episode }) {
     .join(" · ");
   const hasTags = episode.tags.length > 0;
   return (
-    <section className="rounded-2xl border border-slate-200 bg-gradient-to-br from-slate-50 via-white to-slate-100 p-6 shadow-sm">
+    <section className="glass-panel animate-rise rounded-2xl p-6 ring-1 ring-sky-100/70">
       <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
         <div className="space-y-3">
-          <p className="text-sm uppercase tracking-[0.2em] text-slate-500">
+          <p className="text-sm uppercase tracking-[0.2em] text-sky-600">
             Latest Episode
           </p>
           <h1 className="text-3xl font-semibold leading-tight text-slate-900">
@@ -24,7 +24,7 @@ export function EpisodeHero({ episode }: { episode: Episode }) {
               {episode.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-semibold text-slate-700"
+                  className="rounded-full border border-sky-100/80 bg-sky-50/80 px-3 py-1 text-xs font-semibold text-sky-800"
                 >
                   {tag}
                 </span>
@@ -35,7 +35,7 @@ export function EpisodeHero({ episode }: { episode: Episode }) {
             {episode.youtubeUrl && (
               <a
                 href={episode.youtubeUrl}
-                className="rounded-full bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-800"
+                className="rounded-full bg-gradient-to-r from-sky-600 via-blue-600 to-teal-500 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:brightness-105"
               >
                 Watch on YouTube
               </a>
@@ -43,7 +43,7 @@ export function EpisodeHero({ episode }: { episode: Episode }) {
             {episode.spotifyUrl && (
               <a
                 href={episode.spotifyUrl}
-                className="rounded-full border border-slate-900 px-4 py-2 text-sm font-semibold text-slate-900 hover:bg-slate-900 hover:text-white"
+                className="rounded-full border border-sky-200 bg-white/80 px-4 py-2 text-sm font-semibold text-sky-700 transition hover:border-sky-300 hover:text-sky-900"
               >
                 Listen on Spotify
               </a>
@@ -51,7 +51,7 @@ export function EpisodeHero({ episode }: { episode: Episode }) {
             {episode.appleUrl && (
               <a
                 href={episode.appleUrl}
-                className="rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-800 hover:border-slate-900"
+                className="rounded-full border border-slate-200 bg-white/80 px-4 py-2 text-sm font-semibold text-slate-800 transition hover:border-slate-400"
               >
                 Apple Podcast
               </a>
@@ -59,7 +59,7 @@ export function EpisodeHero({ episode }: { episode: Episode }) {
           </div>
         </div>
         <div className="w-full md:w-[520px]">
-          <div className="aspect-[16/10] overflow-hidden rounded-xl border border-slate-200 bg-black">
+          <div className="aspect-[16/10] overflow-hidden rounded-xl border border-slate-200 bg-black shadow-sm">
             {embedUrl ? (
               <iframe
                 className="h-full w-full"
@@ -87,7 +87,7 @@ export function EpisodeHero({ episode }: { episode: Episode }) {
       </div>
       <div className="mt-4 text-right text-sm">
         <Link
-          className="text-slate-700 underline"
+          className="text-sky-700 underline"
           href={`/episodes/${episode.slug}`}
         >
           Go to episode page →

@@ -13,15 +13,15 @@ export default async function LearnDetail({ params }: Props) {
 
   return (
     <div className="space-y-8">
-      <header className="space-y-3">
-        <p className="text-xs uppercase tracking-[0.2em] text-slate-500">Learn</p>
+      <header className="glass-panel space-y-3 rounded-2xl p-6 ring-1 ring-sky-100/70">
+        <p className="text-xs uppercase tracking-[0.2em] text-sky-600">Learn</p>
         <h1 className="text-3xl font-semibold text-slate-900">{term.title}</h1>
         <p className="text-sm text-slate-600">{term.shortDef}</p>
         <div className="flex flex-wrap gap-2">
           {term.categories.map((cat) => (
             <span
               key={cat}
-              className="rounded-full bg-slate-100 px-2 py-1 text-xs font-semibold text-slate-700"
+              className="rounded-full border border-sky-100/80 bg-sky-50/80 px-2 py-1 text-xs font-semibold text-sky-800"
             >
               {cat}
             </span>
@@ -43,14 +43,14 @@ export default async function LearnDetail({ params }: Props) {
             return (
               <a
                 key={`${occ.episode}-${occ.timestamp}`}
-                className="flex items-center justify-between rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+                className="glass-panel flex items-center justify-between rounded-xl p-4 transition hover:-translate-y-0.5 hover:shadow-md ring-1 ring-sky-100/70"
                 href={`/episodes/${ep.slug}#t=${Math.floor(occ.timestamp)}`}
               >
                 <div>
                   <p className="text-sm font-semibold text-slate-900">{ep.title}</p>
                   <p className="text-xs text-slate-600">{ep.publishedAt}</p>
                 </div>
-                <span className="rounded-full bg-slate-100 px-3 py-1 font-mono text-xs text-slate-700">
+                <span className="rounded-full border border-sky-100/80 bg-sky-50/80 px-3 py-1 font-mono text-xs text-sky-800">
                   {formatTimestamp(occ.timestamp)}
                 </span>
               </a>

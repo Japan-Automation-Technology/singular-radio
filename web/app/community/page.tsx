@@ -7,7 +7,7 @@ export default function CommunityPage() {
   return (
     <div className="space-y-6">
       <header className="space-y-2">
-        <p className="text-xs uppercase tracking-[0.2em] text-slate-500">
+        <p className="text-xs uppercase tracking-[0.2em] text-sky-600">
           Community
         </p>
         <h1 className="text-3xl font-semibold text-slate-900">
@@ -18,7 +18,7 @@ export default function CommunityPage() {
         </p>
       </header>
       <Leaderboard entries={leaderboard} />
-      <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+      <div className="glass-panel rounded-xl p-4 ring-1 ring-sky-100/70">
         <h3 className="text-sm font-semibold text-slate-900">投稿機能について</h3>
         <p className="mt-2 text-sm text-slate-700">
           次フェーズでSupabase Auth + RLSを使ったコメント投稿とモデレーションを追加予定です。

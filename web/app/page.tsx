@@ -26,7 +26,7 @@ export default async function Home() {
           <h2 className="text-xl font-semibold text-slate-900">
             Recent Episodes
           </h2>
-          <Link className="text-sm text-slate-600 underline" href="/episodes">
+          <Link className="text-sm text-sky-700 underline" href="/episodes">
             View all →
           </Link>
         </div>
@@ -41,7 +41,7 @@ export default async function Home() {
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <h2 className="text-xl font-semibold text-slate-900">Learn</h2>
-            <Link className="text-sm text-slate-600 underline" href="/learn">
+            <Link className="text-sm text-sky-700 underline" href="/learn">
               Browse all →
             </Link>
           </div>
